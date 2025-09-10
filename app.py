@@ -1,11 +1,13 @@
 from flask import Flask, render_template
 from controllers.mascotas_controller import mascotas_bp
+from routes.app_routes import app_bp
 
 app = Flask(__name__)
 app.secret_key = "secreto"
 
 # Registrar blueprint
 app.register_blueprint(mascotas_bp)
+app.register_blueprint(app_bp)
 
 @app.route("/")
 def index():
@@ -17,3 +19,4 @@ def login():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
