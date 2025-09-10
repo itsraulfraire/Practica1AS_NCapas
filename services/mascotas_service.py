@@ -1,10 +1,21 @@
-from dao.mascotas_dao import insertar_mascota, borrar_mascota, listar_mascotas
+from repositories.mascotas_repository import get_all, search, save
+import pusher
 
-def crear_mascota(datos):
-    insertar_mascota(datos)
+pusher_client = pusher.Pusher(
+    app_id='2046026',
+    key='c018d337fb7e8338dc3a',
+    secret='ee47376ce42adae4531e',
+    cluster='us2',
+    ssl=True
+)
 
-def eliminar_mascota(id_mascota):
-    borrar_mascota(id_mascota)
+def listar_mascotas():
+    return get_all()
 
-def obtener_mascotas():
-    return listar_mascotas()
+def buscar_mascotas(busqueda):
+    return search(busqueda)
+
+def guardar_mascota(mascota):
+    save(mascota)
+    # notificar a todos los clientes
+    pusher_client.trigger("rapid-bird-168", "eventoMascotas", {"message": "Mascota actualizada!"})
