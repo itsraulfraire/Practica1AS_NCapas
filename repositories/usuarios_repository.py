@@ -4,7 +4,7 @@ def autenticar_usuario(usuario, contrasena):
     con = get_connection()
     cursor = con.cursor(dictionary=True)
     query = """
-        SELECT idUsuario, nombre_usuario
+        SELECT id_usuario, nombre_usuario
         FROM usuarios
         WHERE nombre_usuario = %s AND contrasena = %s
         LIMIT 1
