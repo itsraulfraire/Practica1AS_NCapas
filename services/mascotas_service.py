@@ -21,4 +21,4 @@ def guardar_mascota(mascota):
     pusher_client.trigger("rapid-bird-168", "eventoMascotas", {"message": "Mascota actualizada!"})
 
 def eliminar_mascota(id_mascota):
-    return eliminar_mascota_db(id_mascota)
+    return eliminar_por_id(id_mascota)
