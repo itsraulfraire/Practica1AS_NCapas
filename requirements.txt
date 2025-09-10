@@ -4,4 +4,3 @@ mysql-connector-python
 pytz
 Flask-Cors
 pusher
-psycopg2-binary
