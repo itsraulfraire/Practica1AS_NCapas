@@ -1,4 +1,5 @@
 from repositories.mascotas_repository import get_all, search, save
+from repositories.mascotas_repository import eliminar_mascota_db
 import pusher
 
 pusher_client = pusher.Pusher(
@@ -19,3 +20,6 @@ def guardar_mascota(mascota):
     save(mascota)
     # notificar a todos los clientes
     pusher_client.trigger("rapid-bird-168", "eventoMascotas", {"message": "Mascota actualizada!"})
+
+def eliminar_mascota(id_mascota):
+    return eliminar_mascota_db(id_mascota)
