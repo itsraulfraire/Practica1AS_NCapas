@@ -49,13 +49,12 @@ def save(mascota):
     cursor.close()
     con.close()
 
-def eliminar_mascota_db(id_mascota):
+def eliminar_por_id(id_mascota):
     con = get_connection()
     cursor = con.cursor()
-    query = "DELETE FROM mascotas WHERE idMascota = %s"
+    query = "DELETE FROM mascotas WHERE id_mascota = %s"
     cursor.execute(query, (id_mascota,))
     con.commit()
-    deleted = cursor.rowcount
     cursor.close()
     con.close()
-    return deleted > 0
+    return True
