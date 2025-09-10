@@ -30,3 +30,14 @@ def guardar():
     }
     guardar_mascota(mascota)
     return jsonify({"status": "ok"})
+
+@mascotas_bp.route("/mascota/eliminar", methods=["POST"])
+def eliminar():
+    id_mascota = request.form.get("idMascota")
+    if not id_mascota:
+        return jsonify({"status": "error", "message": "Falta idMascota"}), 400
+
+    ok = eliminar_mascota(id_mascota)
+    if ok:
+        return jsonify({"status": "ok", "id": id_mascota})
+    return jsonify({"status": "error", "message": "No se pudo eliminar"}), 500
