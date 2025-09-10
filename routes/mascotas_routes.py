@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, render_template
-from services.mascotas_service import listar_mascotas, buscar_mascotas, guardar_mascota
+from services.mascotas_service import listar_mascotas, buscar_mascotas, guardar_mascota, eliminar_mascota
 
 mascotas_bp = Blueprint("mascotas", __name__)
 
@@ -35,9 +35,10 @@ def guardar():
 def eliminar():
     id_mascota = request.form.get("idMascota")
     if not id_mascota:
-        return jsonify({"status": "error", "message": "Falta idMascota"}), 400
+        return jsonify({"status": "error", "message": "idMascota no enviado"}), 400
 
-    ok = eliminar_mascota(id_mascota)
-    if ok:
-        return jsonify({"status": "ok", "id": id_mascota})
-    return jsonify({"status": "error", "message": "No se pudo eliminar"}), 500
+    try:
+        eliminar_mascota(id_mascota)
+        return jsonify({"status": "ok", "message": "Mascota eliminada"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
