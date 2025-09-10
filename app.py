@@ -1,22 +1,20 @@
 from flask import Flask, render_template
-from controllers.mascotas_controller import mascotas_bp
-from routes.app_routes import app_bp
+from flask_cors import CORS
+from routes.mascotas_routes import mascotas_bp
 
 app = Flask(__name__)
-app.secret_key = "secreto"
+CORS(app)
 
-# Registrar blueprint
+# Registrar Blueprints
 app.register_blueprint(mascotas_bp)
-app.register_blueprint(app_bp)
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
 @app.route("/app")
-def login():
+def login_page():
     return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
-
